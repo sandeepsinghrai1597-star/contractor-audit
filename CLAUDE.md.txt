@@ -1,0 +1,101 @@
+# ContractorSiteAudit — MVP build guide for the coding agent
+
+You are helping build the first of five micro-SaaS tools. The user is a solo founder in India, shipping between BSF (government) duty hours. His time is the scarcest resource; bias every decision toward what ships fastest without needing rework in six weeks.
+
+## Operating principles
+
+When you have enough information to act, act. Do not re-derive facts already established in this file or the current message, do not re-litigate tech-stack decisions, and do not narrate options you will not pursue in user-facing messages. Give a recommendation and move on.
+
+You are operating in Claude Code with file and bash tools. Build in the current working directory. Write files directly. Run commands directly. Do not print full files in chat as output — that is duplication.
+
+Don't add features, refactor, or introduce abstractions beyond what the task requires. This is an MVP. Do the simplest thing that works well. Don't add error handling, fallbacks, or validation for scenarios that cannot happen. Trust internal code and framework guarantees. Only validate at system boundaries (URL input, external API responses, Supabase writes). Don't build feature flags, plugin systems, or "for future extensibility" scaffolding.
+
+Pause for the user only when the work genuinely requires them: a destructive or irreversible action, a real scope change, or a secret value only they can provide (a Supabase project URL, a Google API key). If you hit one of those, ask and end the turn. Otherwise proceed autonomously.
+
+You are operating autonomously. The user is not watching in real time. Asking "Want me to…?" or "Shall I…?" will block the work. For reversible actions that follow from the original request, proceed without asking. Before ending your turn, check your last paragraph. If it is a plan, a promise about work you have not done, or a question you can answer yourself, do that work now with tool calls. End your turn only when the task is complete or you are blocked on input only the user can provide.
+
+Before reporting progress, audit each claim against a tool result or a file you have actually written in this session. Only report work you can point to evidence for. If tests fail, say so with the output. If a step was skipped, say that.
+
+Self-verification is part of the deliverable. Before you say the tool is done, run `pnpm install`, `pnpm typecheck`, `pnpm build`, and `pnpm dev` (spawn `pnpm dev` in the background and hit the local URL via a curl smoke test in a subshell, then kill it). Also run through the acceptance checklist at the bottom of this file and verify each item against the actual code. If any item fails, fix it before reporting complete.
+
+Delegate independent subtasks to subagents and keep working while they run. Example: while the main agent scaffolds the Next.js app, delegate a subagent to write the Supabase schema and another to write the PageSpeed API client. Intervene if a subagent goes off track.
+
+## Final summary style
+
+Terse shorthand between tool calls is fine — that's you thinking. Your final summary is different: it's for the user who wasn't watching. Lead with the outcome. First sentence answers "what was built, does it work." Then the supporting detail. Drop working shorthand. Write complete sentences. Spell out terms.
+
+## Product spec — ContractorSiteAudit
+
+An instant SEO and speed audit for US and Canadian home-service contractor websites (HVAC, plumbing, roofing, electrical). It runs as a lead magnet feeding a separate web design business, so lead capture matters as much as the audit itself. Contractors will share screenshots of their score in Facebook groups; the report page needs to look professional at a glance.
+
+### What it does
+
+A contractor lands on the page, enters their website URL, and within 30 seconds sees a 1-page audit covering:
+
+1. Google PageSpeed Insights mobile score (from PageSpeed Insights API)
+2. Google PageSpeed Insights desktop score
+3. Core Web Vitals: LCP, CLS, INP
+4. Presence of LocalBusiness schema.org markup (fetch HTML, check JSON-LD)
+5. Presence of mobile viewport meta tag
+6. Missing image alt-tag count on the homepage
+7. Estimated fix impact — one-liner per issue in plain English a contractor would understand (not developer jargon)
+
+Below the audit, a "Get the full PDF report emailed to me" gate captures name, email, and business name into Supabase.
+
+### Tech stack — locked, do not propose alternatives
+
+- Next.js 15 App Router, TypeScript, Tailwind, shadcn/ui
+- Supabase for Postgres (audits, leads, rate_limits tables)
+- Google PageSpeed Insights API
+- Package manager: pnpm
+- Deploy target: Hostinger Cloud, deployed from GitHub main branch
+- No authentication for the MVP — entire product is anonymous free-tier
+
+### Constraints that shape the build
+
+- Free tier: 1 audit per IP address per 24 hours, enforced server-side via a Supabase counter table. On the 2nd attempt, show "You've used your free audit today — enter email to unlock unlimited during our launch week" and capture the lead instead of running the audit.
+- Paid tier: not implemented in this build. Leave a single `// TODO: paywall` comment at the point where checkout will later slot in.
+- Audit must complete under 30 seconds or gracefully time out with a retry message. Run mobile and desktop PageSpeed calls in parallel.
+- Report page uses shadcn/ui Card with clear score badges: green ≥ 90, yellow 50–89, red < 50.
+
+### What NOT to build
+
+- No user accounts, no login, no signup flow
+- No payment integration
+- No admin dashboard
+- No email sending (the email gate just captures to Supabase; delivery is a separate later step)
+- No marketing pages beyond the audit form and the report page
+- No i18n, no dark-mode toggle, no cookie banner
+- No unit tests — a curl smoke test against a running dev server is enough
+- No Docker, no CI config beyond what Hostinger's GitHub integration needs
+
+### Deliverables
+
+- Working Next.js 15 app in the current directory
+- `package.json` with pinned dependency versions
+- `.env.example` listing every environment variable needed
+- `supabase/schema.sql` with the three tables (audits, leads, rate_limits) plus indexes on `ip_address` and `created_at`
+- `README.md` with three sections: local dev setup, environment variables, and Hostinger Cloud deploy steps (the user will run the deploy commands manually via hPanel — do not assume server access)
+- All work committed with clear commit messages (do not push to remote — the user handles that)
+
+### Acceptance checklist — verify each before saying done
+
+1. `pnpm typecheck` passes with zero errors
+2. `pnpm build` succeeds
+3. Local `pnpm dev` starts, a curl to `http://localhost:3000` returns HTML with the form
+4. Submitting a valid URL runs mobile + desktop PageSpeed calls in parallel and renders scores under 30 seconds (test with `https://example.com` — a lightweight known-good URL)
+5. Submitting the same IP twice within 24 hours shows the email-gate (test the rate-limit table logic)
+6. Submitting a malformed URL shows an inline error without crashing
+7. Lead form writes name, email, business name, audited URL to the `leads` table
+8. Schema check correctly identifies pages with vs without LocalBusiness JSON-LD (pick your own two test URLs and verify against the report output)
+9. Report page has an "Audit another site" button that respects the rate limit
+10. No secrets in the client bundle — grep the `.next/static` output for the PageSpeed API key and Supabase service role key; both must be absent
+
+### Environment variables the user will supply
+
+- `GOOGLE_PAGESPEED_API_KEY` — user has an account and will paste this in `.env.local`
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+If the user has not supplied these before you need them, ask once and stop. Do not fabricate values.
