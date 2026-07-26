@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
+  --background: #ffffff;
+  --surface: #f8fafc;
   --foreground: #0f172a;
   --card: #ffffff;
   --card-foreground: #0f172a;
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
-  --primary: #1d4ed8;
+  --primary: #f97316;
   --primary-foreground: #ffffff;
   --border: #e2e8f0;
   --input: #e2e8f0;
-  --ring: #1d4ed8;
+  --ring: #f97316;
   --destructive: #dc2626;
-  --radius: 0.625rem;
+  --good: #16a34a;
+  --warn: #f59e0b;
+  --poor: #dc2626;
+  --radius: 0.75rem;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -29,13 +34,29 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
+  --color-good: var(--good);
+  --color-warn: var(--warn);
+  --color-poor: var(--poor);
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
 }
 
+html,
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #fed7aa;
+  color: #7c2d12;
 }

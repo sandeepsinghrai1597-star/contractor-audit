@@ -70,22 +70,27 @@ export async function POST(req: NextRequest) {
 
   await recordRateLimit(ip);
 
-  const { error: insertError } = await supabaseAdmin().from("audits").insert({
-    url,
-    ip_address: ip,
-    mobile_score: audit.mobile.score,
-    desktop_score: audit.desktop.score,
-    lcp_ms: audit.mobile.lcpMs,
-    cls: audit.mobile.cls,
-    inp_ms: audit.mobile.inpMs,
-    has_local_business_schema: audit.checks.hasLocalBusinessSchema,
-    has_viewport_meta: audit.checks.hasViewportMeta,
-    missing_alt_count: audit.checks.missingAltCount,
-  });
-  if (insertError) {
-    // Non-fatal: the visitor still gets their report.
-    console.error("Failed to store audit:", insertError.message);
+  const { data: inserted, error: insertError } = await supabaseAdmin()
+    .from("audits")
+    .insert({
+      url,
+      ip_address: ip,
+      mobile_score: audit.mobile.score,
+      desktop_score: audit.desktop.score,
+      lcp_ms: audit.mobile.lcpMs,
+      cls: audit.mobile.cls,
+      inp_ms: audit.mobile.inpMs,
+      has_local_business_schema: audit.checks.hasLocalBusinessSchema,
+      has_viewport_meta: audit.checks.hasViewportMeta,
+      missing_alt_count: audit.checks.missingAltCount,
+    })
+    .select("id")
+    .single();
+
+  if (insertError || !inserted) {
+    console.error("Failed to store audit:", insertError?.message);
+    return NextResponse.json({ error: "audit_failed" }, { status: 502 });
   }
 
-  return NextResponse.json({ audit });
+  return NextResponse.json({ auditId: inserted.id, audit });
 }
