@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { getAuditById, type StoredAudit } from "@/lib/audit-store";
 import { ScoreDial } from "@/components/audit/ScoreDial";
 import { CategorySection, type CategoryIcon } from "@/components/audit/CategorySection";
 import { LeadCaptureCard } from "@/components/audit/LeadCaptureCard";
+import { SiteNav } from "@/components/audit/SiteNav";
+import { Logo } from "@/components/audit/Logo";
 
 export const dynamic = "force-dynamic";
 
@@ -183,21 +185,12 @@ export default async function ReportPage({ params }: Params) {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* HEADER */}
-      <header className="border-b border-border">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5 sm:px-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft size={16} strokeWidth={1.75} />
-            ContractorSiteAudit
-          </Link>
-          <div className="text-xs text-muted-foreground">
-            Audited {stamp}
-          </div>
+      <SiteNav ctaHref="/" />
+      <div className="border-b border-border bg-background">
+        <div className="mx-auto max-w-5xl px-4 py-3 text-right text-xs text-muted-foreground sm:px-6">
+          Audited {stamp}
         </div>
-      </header>
+      </div>
 
       {/* SCORE HERO */}
       <section className="border-b border-border bg-surface">
@@ -283,9 +276,10 @@ export default async function ReportPage({ params }: Params) {
         </div>
       </section>
 
-      <footer className="py-10">
-        <div className="mx-auto max-w-5xl px-4 text-center text-xs text-muted-foreground sm:px-6">
-          © {new Date().getFullYear()} ContractorSiteAudit
+      <footer className="border-t border-border py-10">
+        <div className="mx-auto flex max-w-5xl items-center justify-center gap-3 px-4 sm:px-6">
+          <Logo size={20} />
+          <span className="text-xs text-muted-foreground">© {new Date().getFullYear()}</span>
         </div>
       </footer>
     </main>

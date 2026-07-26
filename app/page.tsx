@@ -14,6 +14,8 @@ import { AuditCategoryCard } from "@/components/audit/AuditCategoryCard";
 import { CostCalculator } from "@/components/audit/CostCalculator";
 import { LiveCounter } from "@/components/audit/LiveCounter";
 import { Faq } from "@/components/audit/Faq";
+import { SiteNav } from "@/components/audit/SiteNav";
+import { Logo } from "@/components/audit/Logo";
 
 const CATEGORIES = [
   {
@@ -84,6 +86,7 @@ const FAQ = [
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <SiteNav />
       {/* HERO */}
       <section id="audit" className="border-b border-border bg-background">
         <div className="mx-auto max-w-6xl px-4 pb-20 pt-16 sm:px-6 sm:pb-28 sm:pt-24">
@@ -320,10 +323,11 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 text-xs text-muted-foreground sm:flex-row sm:px-6">
-          <div>© {new Date().getFullYear()} ContractorSiteAudit</div>
-          <div className="flex items-center gap-6">
+      <footer className="border-t border-border py-10">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6">
+          <Logo size={22} />
+          <div className="flex items-center gap-6 text-xs text-muted-foreground">
+            <span>© {new Date().getFullYear()}</span>
             <Link href="#audit" className="hover:text-foreground">
               Run an audit
             </Link>

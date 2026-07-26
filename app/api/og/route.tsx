@@ -50,21 +50,29 @@ export async function GET(req: NextRequest) {
             style={{
               display: "flex",
               alignItems: "center",
-              fontSize: 26,
+              fontSize: 28,
               fontWeight: 600,
               color: "#0f172a",
             }}
           >
-            <span
+            <div
               style={{
                 display: "flex",
-                width: 14,
-                height: 14,
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
                 background: "#f97316",
-                borderRadius: 4,
+                borderRadius: 10,
+                color: "white",
+                fontSize: 24,
+                fontWeight: 700,
                 marginRight: 14,
+                letterSpacing: "-0.02em",
               }}
-            />
+            >
+              C
+            </div>
             ContractorSiteAudit
           </div>
           <div style={{ display: "flex", fontSize: 20, color: "#64748b" }}>

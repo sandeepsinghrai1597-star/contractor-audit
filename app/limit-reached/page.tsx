@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Clock, ArrowLeft } from "lucide-react";
+import { Clock } from "lucide-react";
 import { LeadCaptureCard } from "@/components/audit/LeadCaptureCard";
+import { SiteNav } from "@/components/audit/SiteNav";
 
 type Search = { searchParams: Promise<{ url?: string }> };
 
@@ -10,17 +11,7 @@ export default async function LimitReachedPage({ searchParams }: Search) {
 
   return (
     <main className="min-h-screen bg-background">
-      <header className="border-b border-border">
-        <div className="mx-auto flex max-w-5xl items-center px-4 py-5 sm:px-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft size={16} strokeWidth={1.75} />
-            ContractorSiteAudit
-          </Link>
-        </div>
-      </header>
+      <SiteNav ctaHref="/" />
 
       <section className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-center">
