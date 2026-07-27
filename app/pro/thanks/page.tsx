@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { Mail, ArrowLeft } from "lucide-react";
 import { SiteNav } from "@/components/audit/SiteNav";
 import { Logo } from "@/components/audit/Logo";
 
 export const metadata = {
-  title: "Thanks for going Pro — ContractorSiteAudit",
-  description: "Your Pro payment is in. We activate manually within 24 hours during launch week.",
+  title: "Payment confirmation — ContractorSiteAudit",
+  description:
+    "If your PayPal payment went through, we'll activate your Pro account manually within 24 hours.",
 };
 
 export default function ProThanksPage() {
@@ -14,76 +15,84 @@ export default function ProThanksPage() {
       <SiteNav ctaHref="/" />
 
       <section className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
-        <div className="text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-good text-white">
-            <Check size={28} strokeWidth={2.25} />
-          </div>
-          <h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">
-            Thanks for going Pro.
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            Pro upgrade
+          </p>
+          <h1 className="mt-4 font-sans text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
+            If your PayPal payment went through, we&apos;ll email you.
           </h1>
-          <p className="mx-auto mt-4 max-w-lg text-base text-muted-foreground sm:text-lg">
-            Your payment is in. We&apos;re activating Pro accounts manually during launch
-            week — you&apos;ll get an email at the address you used on PayPal within 24
-            hours confirming your account is live.
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            This page is shown after every visit to our PayPal checkout — including if you
+            clicked <span className="font-medium text-foreground">Continue Shopping</span> or
+            closed the window without paying. Visiting this page does not grant Pro access.
           </p>
         </div>
 
-        <div className="mt-10 space-y-4 rounded-2xl border border-border bg-card p-6 sm:p-8">
-          <div className="flex gap-3">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-              1
-            </span>
-            <div>
-              <div className="text-sm font-semibold">Watch for the confirmation email</div>
-              <p className="mt-1 text-sm text-muted-foreground">
-                It comes from hello@contractorsiteaudit.com. Check spam if you don&apos;t see
-                it by tomorrow.
-              </p>
+        <div className="mt-10 rounded-lg border border-border bg-card p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md"
+              style={{ background: "var(--muted)", color: "var(--primary)" }}
+            >
+              <Mail size={20} strokeWidth={1.75} />
             </div>
-          </div>
-          <div className="flex gap-3">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-              2
-            </span>
             <div>
-              <div className="text-sm font-semibold">Keep using the free audit</div>
+              <h2 className="text-base font-semibold text-foreground">
+                If you completed the payment
+              </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                Your one-per-day free audit still works exactly as it did — Pro just adds
-                unlimited runs plus weekly monitoring once it&apos;s switched on.
-              </p>
-            </div>
-          </div>
-          <div className="flex gap-3">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-              3
-            </span>
-            <div>
-              <div className="text-sm font-semibold">Something wrong? Email us</div>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Reach out to{" "}
-                <a
-                  href="mailto:hello@contractorsiteaudit.com"
-                  className="font-medium text-primary underline-offset-4 hover:underline"
-                >
-                  hello@contractorsiteaudit.com
-                </a>{" "}
-                with your PayPal receipt if you don&apos;t hear from us in 24 hours.
+                We activate Pro accounts manually during launch week. You&apos;ll get an
+                email from{" "}
+                <span className="text-foreground">hello@contractorsiteaudit.com</span>{" "}
+                within 24 hours at the address on your PayPal receipt. If you don&apos;t
+                hear from us, forward your PayPal receipt to that address and we&apos;ll sort
+                it out same day.
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 text-center">
+        <div className="mt-4 rounded-lg border border-border bg-card p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md"
+              style={{ background: "var(--muted)", color: "var(--primary)" }}
+            >
+              <ArrowLeft size={20} strokeWidth={1.75} />
+            </div>
+            <div>
+              <h2 className="text-base font-semibold text-foreground">
+                If you didn&apos;t complete the payment
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                No account will be created and you won&apos;t be charged. Head back to the
+                landing page and either run your free daily audit or restart the Pro
+                checkout when you&apos;re ready.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
           <Link
             href="/"
-            className="inline-flex h-11 items-center justify-center rounded-lg border border-border bg-card px-6 text-sm font-semibold transition-colors hover:bg-surface"
+            className="inline-flex h-11 items-center justify-center rounded-md border border-border bg-background px-6 text-sm font-medium text-foreground transition-colors duration-100 hover:bg-muted"
           >
             Back to home
           </Link>
+          <a
+            href="https://www.paypal.com/ncp/payment/G6BNL2M7B5VEE"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors duration-100 hover:bg-primary/90"
+          >
+            Retry Pro checkout
+          </a>
         </div>
       </section>
 
-      <footer className="border-t border-border py-10">
+      <footer className="border-t border-border py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-center gap-3 px-4 sm:px-6">
           <Logo size={20} />
           <span className="text-xs text-muted-foreground">© {new Date().getFullYear()}</span>
