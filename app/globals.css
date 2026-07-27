@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --surface: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f7f5f0;
+  --surface: #ffffff;
+  --foreground: #0f1611;
   --card: #ffffff;
-  --card-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --primary: #f97316;
+  --card-foreground: #0f1611;
+  --muted: #eeeae0;
+  --muted-foreground: #5a5f58;
+  --primary: #d64a1f;
   --primary-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #f97316;
-  --destructive: #dc2626;
-  --good: #16a34a;
-  --warn: #f59e0b;
-  --poor: #dc2626;
-  --radius: 0.75rem;
+  --border: #e4dfd3;
+  --input: #e4dfd3;
+  --ring: #d64a1f;
+  --destructive: #d64a1f;
+  --good: #2f6b3a;
+  --warn: #d64a1f;
+  --poor: #d64a1f;
+  --radius: 0.5rem;
 }
 
 @theme inline {
@@ -40,10 +40,10 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --radius-xl: calc(var(--radius) + 2px);
+  --radius-2xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
 }
 
@@ -57,6 +57,6 @@ body {
 }
 
 ::selection {
-  background: #fed7aa;
-  color: #7c2d12;
+  background: #f4d1c4;
+  color: #4b1a09;
 }

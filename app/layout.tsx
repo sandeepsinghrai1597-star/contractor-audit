@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter_Tight, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const interTight = Inter_Tight({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-inter-tight",
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
+    <html lang="en" className={`${interTight.variable} ${instrumentSerif.variable}`}>
       <body className="min-h-screen bg-background text-foreground antialiased">{children}</body>
     </html>
   );

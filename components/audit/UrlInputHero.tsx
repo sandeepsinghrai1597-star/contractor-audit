@@ -54,19 +54,17 @@ export function UrlInputHero({
   }
 
   const inputCls =
-    size === "lg"
-      ? "h-14 text-base sm:text-lg"
-      : "h-12 text-base";
+    size === "lg" ? "h-14 text-base sm:h-16 sm:text-lg" : "h-12 text-base";
   const btnCls =
-    size === "lg" ? "h-14 px-6 text-base" : "h-12 px-5 text-sm";
+    size === "lg" ? "h-11 px-5 text-sm sm:h-12 sm:px-6" : "h-10 px-4 text-sm";
 
   return (
     <div className={cn("w-full", className)}>
       <form
         onSubmit={submit}
         className={cn(
-          "flex w-full items-center gap-2 rounded-2xl border border-border bg-card p-1.5 shadow-sm transition-shadow focus-within:border-primary focus-within:shadow-md",
-          size === "lg" ? "sm:p-2" : ""
+          "flex w-full items-center gap-2 rounded-lg border border-border bg-card pl-1 pr-1.5 focus-within:border-foreground",
+          size === "lg" ? "sm:pl-2 sm:pr-2" : ""
         )}
       >
         <input
@@ -80,7 +78,7 @@ export function UrlInputHero({
           aria-label="Your website address"
           required
           className={cn(
-            "flex-1 rounded-xl bg-transparent px-4 text-foreground placeholder:text-muted-foreground/70 focus:outline-none disabled:opacity-60",
+            "min-w-0 flex-1 rounded-md bg-transparent px-3 text-foreground placeholder:text-muted-foreground/70 focus:outline-none disabled:opacity-60",
             inputCls
           )}
         />
@@ -88,7 +86,7 @@ export function UrlInputHero({
           type="submit"
           disabled={loading}
           className={cn(
-            "inline-flex items-center justify-center gap-2 rounded-xl bg-primary font-semibold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80",
+            "inline-flex items-center justify-center gap-2 rounded-md bg-primary font-medium text-primary-foreground transition-colors duration-100 hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-80",
             btnCls
           )}
         >
@@ -99,8 +97,10 @@ export function UrlInputHero({
             </>
           ) : (
             <>
-              <span>Audit my site</span>
-              <ArrowRight className="h-5 w-5" />
+              <span>
+                Audit<span className="hidden sm:inline"> my site</span>
+              </span>
+              <ArrowRight className="hidden h-5 w-5 sm:block" />
             </>
           )}
         </button>

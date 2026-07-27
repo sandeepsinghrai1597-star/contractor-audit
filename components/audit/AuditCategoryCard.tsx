@@ -5,25 +5,29 @@ export function AuditCategoryCard({
   icon: Icon,
   title,
   description,
+  beta,
   className,
 }: {
   icon: LucideIcon;
   title: string;
   description: string;
+  beta?: boolean;
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        "group rounded-2xl border border-border bg-card p-6 transition-colors hover:border-slate-300",
-        className
+    <div className={cn("relative rounded-lg border border-border bg-card p-6", className)}>
+      {beta && (
+        <span className="absolute right-4 top-4 rounded-md border border-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Beta
+        </span>
       )}
-    >
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-50 text-primary">
-        <Icon size={22} strokeWidth={1.75} />
-      </div>
-      <h3 className="mt-5 text-lg font-semibold tracking-tight">{title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
+      <Icon
+        size={26}
+        strokeWidth={1.5}
+        style={{ color: "var(--primary)", opacity: 0.6 }}
+      />
+      <h3 className="mt-5 text-xl font-medium tracking-tight text-foreground">{title}</h3>
+      <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{description}</p>
     </div>
   );
 }
