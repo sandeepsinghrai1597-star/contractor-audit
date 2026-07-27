@@ -9,10 +9,12 @@ export function UrlInputHero({
   size = "lg",
   className,
   autoFocus = false,
+  placeholder = "https://mikesplumbing.com",
 }: {
   size?: "md" | "lg";
   className?: string;
   autoFocus?: boolean;
+  placeholder?: string;
 }) {
   const router = useRouter();
   const [url, setUrl] = useState("");
@@ -74,7 +76,7 @@ export function UrlInputHero({
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           disabled={loading}
-          placeholder="https://your-hvac-site.com"
+          placeholder={placeholder}
           aria-label="Your website address"
           required
           className={cn(
