@@ -391,13 +391,14 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button
-                type="button"
-                disabled
-                className="mt-8 flex h-11 w-full items-center justify-center rounded-lg bg-primary/70 px-6 text-sm font-semibold text-primary-foreground opacity-70"
+              <a
+                href="https://www.paypal.com/ncp/payment/G6BNL2M7B5VEE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-8 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                Pro — launching soon
-              </button>
+                Upgrade to Pro — $29/month
+              </a>
             </div>
           </div>
         </div>

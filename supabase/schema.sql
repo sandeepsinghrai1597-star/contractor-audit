@@ -43,3 +43,18 @@ create index if not exists rate_limits_ip_created_idx on rate_limits (ip_address
 create index if not exists audits_ip_idx on audits (ip_address);
 create index if not exists audits_created_idx on audits (created_at);
 create index if not exists leads_created_idx on leads (created_at);
+
+-- Pro subscribers. Populated manually during launch week from PayPal receipts.
+-- The auth path that reads this table (magic link + cookie) is not built yet.
+create table if not exists pro_users (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  email text not null unique,
+  activated_at timestamptz not null default now(),
+  expires_at timestamptz not null,
+  paypal_transaction_id text,
+  notes text
+);
+
+create index if not exists pro_users_email_idx on pro_users (email);
+create index if not exists pro_users_expires_idx on pro_users (expires_at);
