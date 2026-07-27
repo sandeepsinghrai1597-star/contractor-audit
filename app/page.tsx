@@ -16,7 +16,7 @@ import { Faq } from "@/components/audit/Faq";
 import { SiteNav } from "@/components/audit/SiteNav";
 import { Logo } from "@/components/audit/Logo";
 
-const PRO_PRICE = "$2";
+const PRO_PRICE = "$29";
 
 const CATEGORIES = [
   {
