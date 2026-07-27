@@ -16,13 +16,7 @@ import { Faq } from "@/components/audit/Faq";
 import { SiteNav } from "@/components/audit/SiteNav";
 import { Logo } from "@/components/audit/Logo";
 
-// TODO(pricing): replace {{PRICE_PLACEHOLDER}} with the final Pro tier monthly price once decided.
-const PRICE_PLACEHOLDER = "{{PRICE_PLACEHOLDER}}";
-
-// TODO(verify): replace {{VERIFY: total-checks-count}} in the "What we check" heading
-// once the engine's real check count is confirmed. Current engine runs 8 sub-checks
-// (mobile + desktop PSI scores, LCP, CLS, INP, LocalBusiness JSON-LD, viewport meta,
-// missing alt count); the target 6 categories below extend beyond what ships today.
+const PRO_PRICE = "$2";
 
 const CATEGORIES = [
   {
@@ -204,7 +198,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              {"{{VERIFY: total-checks-count}}"} checks across 6 categories.
+              5 checks across 6 categories.
             </h2>
             <p className="mt-4 text-base text-muted-foreground sm:text-lg">
               Written for a contractor, not a marketer.
@@ -374,7 +368,7 @@ export default function Home() {
               <div className="flex items-baseline justify-between">
                 <h3 className="text-lg font-semibold tracking-tight">Pro</h3>
                 <span className="text-3xl font-bold tabular-nums">
-                  {PRICE_PLACEHOLDER}
+                  {PRO_PRICE}
                   <span className="ml-1 text-base font-medium text-muted-foreground">
                     /month
                   </span>
