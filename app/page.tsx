@@ -60,7 +60,7 @@ const COMPARE_ROWS = [
 const FAQ = [
   {
     q: "Is this really free?",
-    a: "Yes. One audit per IP per day, no signup, no card. The paid tier is the weekly monitoring, not the audit itself — running an audit stays free forever.",
+    a: "Yes. Nine audits per IP per day, no signup, no card. The paid tier is the weekly monitoring, not the audit itself — running an audit stays free forever.",
   },
   {
     q: "Do I need to give you my password or site access?",
@@ -113,7 +113,7 @@ export default function Home() {
                 <span aria-hidden className="text-border">·</span>
                 <span>No sales calls</span>
                 <span aria-hidden className="text-border">·</span>
-                <span>Free tier: 1 audit per day</span>
+                <span>Free tier: 9 audits per day</span>
               </div>
             </div>
 
@@ -281,10 +281,10 @@ export default function Home() {
                 </span>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                Everything you need to see your score once a day.
+                Everything you need to check your site as often as you need to.
               </p>
               <ul className="mt-8 space-y-3 border-l border-border pl-4 text-[15px] leading-relaxed text-muted-foreground">
-                <li>1 audit per IP address per 24 hours</li>
+                <li>9 audits per IP address per 24 hours</li>
                 <li>Full in-browser score across all 6 categories</li>
                 <li>Shareable score card URL</li>
                 <li>Optional PDF fix checklist by email</li>

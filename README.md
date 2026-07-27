@@ -1,6 +1,6 @@
 # ContractorSiteAudit
 
-Instant SEO and speed audit for US/Canadian home-service contractor websites (HVAC, plumbing, roofing, electrical). Enter a URL, get a 1-page report: Google PageSpeed mobile + desktop scores, Core Web Vitals, LocalBusiness schema check, viewport check, and missing image alt-tags — with plain-English fix advice. Lead capture gate below the report. Free tier is 1 audit per IP per 24 hours.
+Instant SEO and speed audit for US/Canadian home-service contractor websites (HVAC, plumbing, roofing, electrical). Enter a URL, get a 1-page report: Google PageSpeed mobile + desktop scores, Core Web Vitals, LocalBusiness schema check, viewport check, and missing image alt-tags — with plain-English fix advice. Lead capture gate below the report. Free tier is 9 audits per IP per 24 hours (see `lib/rate-limit.ts` `FREE_AUDITS_PER_DAY`).
 
 ## Local dev setup
 

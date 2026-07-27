@@ -15,14 +15,18 @@ export default async function LimitReachedPage({ searchParams }: Search) {
 
       <section className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-orange-50 text-primary">
+          <div
+            className="mx-auto flex h-14 w-14 items-center justify-center rounded-md"
+            style={{ background: "var(--muted)", color: "var(--primary)" }}
+          >
             <Clock size={26} strokeWidth={1.75} />
           </div>
-          <h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">
-            You&apos;ve used your free audit today.
+          <h1 className="mt-6 text-3xl font-medium tracking-tight sm:text-4xl">
+            You&apos;ve used all 9 free audits today.
           </h1>
           <p className="mx-auto mt-4 max-w-lg text-base text-muted-foreground sm:text-lg">
-            Drop your email to unlock unlimited audits during our launch week — no card, no charge.
+            Drop your email to unlock unlimited audits during our launch week — no card,
+            no charge.
           </p>
         </div>
 
@@ -31,7 +35,7 @@ export default async function LimitReachedPage({ searchParams }: Search) {
         </div>
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
-          Or wait 24 hours for your next free audit — no signup needed.{" "}
+          Or wait 24 hours for your next 9 free audits — no signup needed.{" "}
           <Link href="/" className="font-medium text-primary underline-offset-4 hover:underline">
             Back to home
           </Link>

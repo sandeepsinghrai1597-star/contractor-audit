@@ -47,7 +47,7 @@ export function LeadCaptureCard({
       : "Get the full PDF report emailed to you";
   const sub =
     variant === "gate"
-      ? "One free audit per day is our launch limit. Drop your details to run more."
+      ? "Nine free audits per day is our launch limit. Drop your details to run more."
       : "Every issue we found, prioritized, with plain-English fixes you can hand to any web person.";
 
   return (
