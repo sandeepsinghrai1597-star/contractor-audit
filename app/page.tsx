@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Wrench, Gauge, Smartphone, MapPin, PhoneCall, Sparkles } from "lucide-react";
 import { UrlInputHero } from "@/components/audit/UrlInputHero";
@@ -6,8 +7,28 @@ import { HeroScoreCard } from "@/components/audit/HeroScoreCard";
 import { Faq } from "@/components/audit/Faq";
 import { SiteNav } from "@/components/audit/SiteNav";
 import { Logo } from "@/components/audit/Logo";
+import {
+  SITE_URL,
+  softwareApplicationSchema,
+  serviceSchema,
+  faqPageSchema,
+} from "@/lib/seo";
 
 const PRO_PRICE = "$29";
+
+export const metadata: Metadata = {
+  title: "Contractor Website Audit — Free SEO & Speed Check in 30 Seconds",
+  description:
+    "Free 30-second SEO, speed, and Google Business Profile audit for HVAC, plumbing, roofing, and electrical contractor websites. No email required to see your score.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "Contractor Website Audit — Free SEO & Speed Check in 30 Seconds",
+    description:
+      "Free 30-second SEO, speed, and Google Business Profile audit for HVAC, plumbing, roofing, and electrical contractor websites. No email required to see your score.",
+    url: SITE_URL,
+    type: "website",
+  },
+};
 
 const CATEGORIES = [
   {
@@ -81,8 +102,20 @@ const FAQ = [
 ];
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { ...softwareApplicationSchema(), "@id": `${SITE_URL}#software` },
+      { ...serviceSchema(), "@id": `${SITE_URL}#service` },
+      faqPageSchema(FAQ),
+    ],
+  };
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteNav />
 
       {/* 1. HERO — two-column desktop, stacked mobile */}
@@ -157,6 +190,13 @@ export default function Home() {
             </h2>
             <p className="mt-4 text-base text-muted-foreground">
               Written for a contractor, not a marketer.
+            </p>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              A <strong className="font-medium text-foreground">contractor website audit</strong>{" "}
+              is a check of the on-page and off-page signals that decide whether Google,
+              Bing, and AI answer engines send home-service jobs your way — including page
+              speed, Core Web Vitals, LocalBusiness schema, Google Business Profile
+              signals, phone visibility, and citations in ChatGPT and Perplexity.
             </p>
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

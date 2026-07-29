@@ -4,9 +4,10 @@ import { SiteNav } from "@/components/audit/SiteNav";
 import { Logo } from "@/components/audit/Logo";
 
 export const metadata = {
-  title: "Payment confirmation — ContractorSiteAudit",
+  title: "Payment confirmation",
   description:
     "If your PayPal payment went through, we'll activate your Pro account manually within 24 hours.",
+  robots: { index: false, follow: false },
 };
 
 export default function ProThanksPage() {

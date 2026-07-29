@@ -1,7 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Clock } from "lucide-react";
 import { LeadCaptureCard } from "@/components/audit/LeadCaptureCard";
 import { SiteNav } from "@/components/audit/SiteNav";
+
+export const metadata: Metadata = {
+  title: "Daily audit limit reached",
+  robots: { index: false, follow: false },
+};
 
 type Search = { searchParams: Promise<{ url?: string }> };
 

@@ -8,30 +8,31 @@ import { CategorySection, type CategoryIcon } from "@/components/audit/CategoryS
 import { LeadCaptureCard } from "@/components/audit/LeadCaptureCard";
 import { SiteNav } from "@/components/audit/SiteNav";
 import { Logo } from "@/components/audit/Logo";
+import { SITE_URL, breadcrumbSchema } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ id: string }> };
 
-function origin(): string {
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-}
-
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
   const audit = await getAuditById(id).catch(() => null);
-  if (!audit) return { title: "Audit not found — ContractorSiteAudit" };
+  if (!audit) return { title: "Audit not found" };
 
-  const title = `${new URL(audit.url).hostname} scored ${audit.mobileScore ?? "—"} on mobile`;
-  const description = "Instant SEO and speed audit for contractor websites. Score in 30 seconds — no signup.";
-  const ogUrl = `${origin()}/api/og?id=${audit.id}`;
+  const hostname = new URL(audit.url).hostname;
+  const title = `${hostname} scored ${audit.mobileScore ?? "—"} on mobile`;
+  const description = `Free contractor website audit report for ${hostname} — mobile ${audit.mobileScore ?? "—"}, desktop ${audit.desktopScore ?? "—"}. SEO, speed, Core Web Vitals, Local SEO, and AI Search citations.`;
+  const ogUrl = `${SITE_URL}/api/og?id=${audit.id}`;
+  const canonical = `${SITE_URL}/audit/${audit.id}`;
 
   return {
-    title: `${title} · ContractorSiteAudit`,
+    title,
     description,
+    alternates: { canonical },
     openGraph: {
       title,
       description,
+      url: canonical,
       images: [{ url: ogUrl, width: 1200, height: 630 }],
     },
     twitter: {
@@ -183,8 +184,33 @@ export default async function ReportPage({ params }: Params) {
   });
   const sections = fixesFor(audit);
 
+  const canonical = `${SITE_URL}/audit/${audit.id}`;
+  const reportJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      breadcrumbSchema([
+        { name: "Home", url: SITE_URL },
+        { name: `Audit for ${hostname}`, url: canonical },
+      ]),
+      {
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: `${hostname} website audit`,
+        description: `Free contractor website audit for ${hostname}. Mobile score ${mobile}, desktop score ${desktop}.`,
+        inLanguage: "en-US",
+        isPartOf: { "@id": `${SITE_URL}#website` },
+        primaryImageOfPage: `${SITE_URL}/api/og?id=${audit.id}`,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reportJsonLd) }}
+      />
       <SiteNav ctaHref="/" />
       <div className="border-b border-border bg-background">
         <div className="mx-auto max-w-5xl px-4 py-3 text-right text-xs text-muted-foreground sm:px-6">
